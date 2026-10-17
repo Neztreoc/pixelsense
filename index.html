@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pixelsense</title>
+<link rel="icon" type="image/png" href="brand/favicon.png">
+<link rel="apple-touch-icon" href="brand/apple-touch-icon.png">
+<link rel="stylesheet" href="style.css">
+<script src="config.js"></script>
+<script src="gate.js"></script>
+</head>
+<body>
+<div class="bg" aria-hidden="true"><div class="bg-layer"></div><div class="bg-layer"></div></div>
+<div id="gate" hidden>
+  <form id="gateForm">
+    <img class="logo gate-logo" src="brand/logo.webp" alt="Pixelsense">
+    <input type="password" id="gatePw" class="field" placeholder="Password" autocomplete="current-password" required>
+    <label class="remember"><input type="checkbox" id="gateRemember"> Keep me signed in on this device</label>
+    <button class="btn primary" type="submit">Unlock</button>
+    <p class="msg" id="gateMsg"></p>
+  </form>
+</div>
+<main>
+  <header>
+    <h1 class="brand"><img class="logo" src="brand/logo.webp" alt="Pixelsense"></h1>
+    <button id="driveStatus" class="chip" type="button">Drive: not connected</button>
+  </header>
+
+  <section class="recover" id="recover" hidden>
+    <span id="recoverText"></span>
+    <div class="actions">
+      <button id="recoverBtn" class="btn primary" type="button">Recover</button>
+      <button id="recoverDelete" class="btn ghost" type="button">Delete</button>
+    </div>
+  </section>
+
+  <section class="stage" id="stage">
+    <video id="preview" muted playsinline></video>
+    <div class="empty" id="empty">
+      <div class="ring"></div>
+      <p>Ready when you are</p>
+    </div>
+    <div class="badge" id="badge" hidden><span class="rec"></span><span id="timer">00:00</span></div>
+    <div class="meters" id="meters" hidden>
+      <div class="meter" id="sysMeter"><span>SYS</span><div class="segs" id="sysSegs"></div></div>
+      <div class="meter" id="micMeter"><span>MIC</span><div class="segs" id="micSegs"></div></div>
+    </div>
+  </section>
+
+  <section class="controls">
+    <label class="toggle">
+      <input type="checkbox" id="micToggle" checked>
+      <span class="track"><span class="thumb"></span></span>
+      <span>Microphone</span>
+    </label>
+
+    <button id="recBtn" class="rec-btn" type="button" aria-label="Start recording">
+      <span class="inner"></span>
+    </button>
+
+    <div class="hint" id="hint">Choose a screen, window or tab</div>
+  </section>
+
+  <section class="result" id="result" hidden>
+    <div class="meta"><strong id="fileName"></strong><span id="fileSize"></span></div>
+    <div class="actions">
+      <button id="downloadBtn" class="btn" type="button">Download .webm</button>
+      <button id="driveBtn" class="btn primary" type="button">Save to Google Drive</button>
+      <button id="transcribeBtn" class="btn" type="button">Transcribe</button>
+      <button id="discardBtn" class="btn ghost" type="button">Discard</button>
+    </div>
+    <div class="progress" id="progress" hidden><div id="bar"></div></div>
+    <p class="msg" id="msg"></p>
+
+    <div class="transcript" id="transcript" hidden>
+      <div class="tr-head">
+        <strong>Transcript</strong>
+        <div class="actions" id="trActions" hidden>
+          <button id="trCopy" class="btn" type="button">Copy</button>
+          <button id="trTxt" class="btn" type="button">Download .txt</button>
+          <button id="trSrt" class="btn" type="button">Download .srt</button>
+        </div>
+      </div>
+      <div class="progress" id="trProgress" hidden><div id="trBar"></div></div>
+      <p class="msg" id="trMsg"></p>
+      <div class="tr-lines" id="trLines"></div>
+    </div>
+  </section>
+</main>
+
+<dialog id="audioDialog">
+  <h2>System audio is not recording</h2>
+  <p>The browser didn't share your computer's sound. To include it, restart and tick <strong>"Share system audio"</strong> in the picker. Choose <strong>Entire screen</strong>, as window sharing has no system audio option.</p>
+  <div class="actions">
+    <button id="restartBtn" class="btn primary" type="button">Go to share switch</button>
+    <button id="continueBtn" class="btn ghost" type="button">Continue without</button>
+  </div>
+</dialog>
+
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="store.js"></script>
+<script src="meters.js"></script>
+<script src="app.js"></script>
+<script src="transcribe.js"></script>
+</body>
+</html>
